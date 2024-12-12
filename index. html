@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Facts Explorer</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --button-bg: #4CAF50;
+            --button-text: #ffffff;
+        }
+
+        body.dark-theme {
+            --bg-color: #333333;
+            --text-color: #ffffff;
+            --button-bg: #45a049;
+            --button-text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .content {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .fact-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--text-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .fact-card h3 {
+            margin-top: 0;
+            color: var(--button-bg);
+        }
+
+        .category {
+            display: inline-block;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Space Facts Explorer</h1>
+        <button id="themeToggle">Toggle Theme</button>
+        <div class="content">
+            <div id="factContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Space facts data
+        const spaceFacts = {
+            "spaceFacts": [
+                // Copy all 20 facts from the previous JSON here
+            ]
+        };
+
+        // Main script
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const factContainer = document.getElementById('factContainer');
+            
+            // Theme functionality
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.body.classList.add(currentTheme);
+            }
+
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                const theme = document.body.classList.contains('dark-theme') ? 'dark-theme' : '';
+                localStorage.setItem('theme', theme);
+            });
+
+            // Display facts
+            spaceFacts.spaceFacts.forEach(fact => {
+                const factElement = document.createElement('div');
+                factElement.classList.add('fact-card');
+                factElement.innerHTML = `
+                    <h3>Fact #${fact.id}</h3>
+                    <p>${fact.fact}</p>
+                    <span class="category">${fact.category}</span>
+                `;
+                factContainer.appendChild(factElement);
+            });
+        });
+    </script>
+</body>
+</html>
